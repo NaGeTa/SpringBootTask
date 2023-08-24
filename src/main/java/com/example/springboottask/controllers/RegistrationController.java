@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -23,11 +24,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String getRegistrationPage(@ModelAttribute("user") /*@Vaild*/ User user, Model model) {
+    public String getRegistrationPage(@ModelAttribute("user") /*@Vaild*/ User user) {
 
         userService.saveUser(user);
 
         return "login";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id){
+        userService.deleteUser(id);
+        return "redirect:/";
     }
 
 }
